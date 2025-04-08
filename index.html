@@ -3,9 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <title>Der Die Das</title>
 </head>
 <body>
-  
+  <header>
+    <p>Mejor puntuación: <b id="best_score">24</b></p>
+  </header>
+  <main>
+    <div id="game">
+      <div id="word">Der Die Das</div>
+      <button id="start_button" onclick="initGame()">Iniciar Juego</button>
+      <div id="buttons" style="display: none;">
+        <button class="der" onclick="answer('der')">der</button>
+        <button class="die" onclick="answer('die')">die</button>
+        <button class="das" onclick="answer('das')">das</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div><p>Puntuación: <b id="score">0</b></p></div>
+    <!-- <div id="timer"><b>15</b></div> -->
+  </footer>
+  <script src="main.js"></script>
 </body>
 </html>
