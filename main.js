@@ -3,7 +3,8 @@ const data = {
   score: 0,
   bestScore: 0,
   shuffleNouns: [],
-  currentNoun: 0
+  currentNoun: 0,
+  answered: []
 }
 
 function getBestScore() {
@@ -29,7 +30,7 @@ function resetScore() {
 }
 
 function getNouns() {
-  return fetch('/src/Sustantivos.tsv')
+  return fetch('src/Sustantivos.tsv')
     .then(response => response.text())
     .then(raw => {
       const rawSplitted = raw.split('\n');
@@ -53,24 +54,24 @@ function shuffleNouns() {
 }
 
 function answer(ans) {
+  data.answered.push({...data.shuffleNouns[data.currentNoun], answer: ans});
   if (ans == data.shuffleNouns[data.currentNoun].gender) {
-    // alert('Correcto');
     data.score++;
+    data.currentNoun++;
+    setNoun();
   } else {
     if (data.score > data.bestScore) {
       setBestScore(data.score);
       getBestScore();
       alert('Nuevo Mejor Puntaje')
-      setBestScoreDisplay();
-      resetScore();
     } else {
-      alert('Incorrecto');
     }
+    setBestScoreDisplay();
+    resetScore();
+    resetGame();
     data.score = 0;
   }
-  data.currentNoun++;
   setScoreDisplay();
-  setNoun();
 }
 
 function setNoun() {
@@ -84,7 +85,16 @@ function setNoun() {
 function initGame() {
   document.getElementById('start_button').style.display = 'none';
   document.getElementById('buttons').style.display = 'flex';
+  document.getElementById('summary').style.display = 'none';
   shuffleNouns();
+  setNoun();
+}
+
+function resetGame() {
+  document.getElementById('start_button').style.display = 'initial';
+  document.getElementById('buttons').style.display = 'none';
+  document.getElementById('summary').style.display = 'block';
+  document.getElementById('correct_answer').innerText = data.shuffleNouns[data.currentNoun].gender;
   setNoun();
 }
 
