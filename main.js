@@ -4,17 +4,63 @@ const data = {
   bestScore: 0,
   shuffleNouns: [],
   currentNoun: 0,
-  answered: []
+  answered: [],
+  phrase: 0
 }
+
+const phrases = [
+  "¡Der Hammer! (¡Increíble!)",
+  "Imparable",
+  "¡Eres un genio!",
+  "¡Lo tuyo es el der, die, das!",
+  "¡No hay duda, eres una experta!",
+  "¡Estás en racha!",
+  "¡Eres un maestro del alemán!",
+  "¡Nivel: Alemán ninja!",
+  "¡Cada vez más cerca de la perfección!",
+  "¡Qué memoria tienes!",
+  "¡No hay quien te detenga!",
+  "¡Estás arrasando con los artículos!",
+  "¡Eres el terror de los errores!",
+  "Der, die, das... ¡todos caen ante ti!",
+  "¡Boom! Otro punto para ti.",
+  "¡No hay quien te pare!",
+  "¡Cada punto te hace más fuerte!",
+  "¡Increíble! Ni Google te alcanza.",
+  "¡Das war perfekt!",
+  "¡Bam! Otro acierto más.",
+  "¡Eres una máquina de aprender!",
+  "¡El diccionario debería tener tu nombre!",
+  "¡Una mente poderosa en acción!",
+  "¡Cuidado, que se viene una mente bilingüe!",
+  "¡Los artículos tiemblan cuando te ven!",
+  "¡Pura elegancia lingüística!",
+  "¡No hay “derrota” cuando tú juegas!",
+  "¡Eres la reina de los artículos!",
+  "¡Ese “der” estuvo de diez!",
+  "¡Estás en modo alemán pro!",
+  "¡Tu memoria debería estar en un museo!",
+  "¡Un genio entre artículos!",
+  "¡Estás conquistando el idioma palabra por palabra!",
+  "¡Un punto más, un paso más!",
+  "¡Cada acierto, un aplauso mental!",
+  "¡Der, die, das... ¡y tú en la cima!",
+  "¡Este idioma no sabe con quién se metió!",
+  "¡Ya casi puedes soñar en alemán!"
+]
 
 function getBestScore() {
   const bestScore = parseInt(localStorage.getItem('best-score')) || 0;
+  const phrase = parseInt(localStorage.getItem('phrase')) || 0;
   data.bestScore = bestScore;
+  data.phrase = phrase;
   return bestScore;
 }
 
 function setBestScore(score) {
   localStorage.setItem('best-score', score);
+  data.phrase++;
+  localStorage.setItem('phrase', data.phrase);
 }
 
 function setBestScoreDisplay() {
@@ -55,16 +101,18 @@ function shuffleNouns() {
 
 function answer(ans) {
   data.answered.push({...data.shuffleNouns[data.currentNoun], answer: ans});
+  document.getElementById('new_score').style.display = 'none';
   if (ans == data.shuffleNouns[data.currentNoun].gender) {
     data.score++;
     data.currentNoun++;
     setNoun();
   } else {
+    document.getElementById('new_best_score').innerText = data.score;
     if (data.score > data.bestScore) {
       setBestScore(data.score);
       getBestScore();
-      alert('Nuevo Mejor Puntaje')
-    } else {
+      document.getElementById('phrase').innerText = phrases[data.phrase];
+      document.getElementById('new_score').style.display = 'initial';
     }
     setBestScoreDisplay();
     resetScore();

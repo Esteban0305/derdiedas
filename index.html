@@ -15,6 +15,14 @@
     <div id="game">
       <div id="word">Der Die Das</div>
       <div id="summary" style="display: none;">
+        <p>Tu puntuación: <b id="new_best_score">0</b></p>
+        <br>
+        <div id="new_score">
+          <h1>¡Nueva mejor puntuación!</h1>
+          <br>
+          <p id="phrase"></p>
+          <br>
+        </div>
         <p>Respuesta correcta: <b id="correct_answer"></b></p>
       </div>
       <button id="start_button" onclick="initGame()">Iniciar Juego</button>
@@ -26,7 +34,7 @@
     </div>
   </main>
   <footer>
-    <div><p>Puntuación: <b id="score">0</b></p></div>
+    <p>Puntuación: <b id="score">0</b></p>
     <!-- <div id="timer"><b>15</b></div> -->
   </footer>
   <script src="main.js"></script>
